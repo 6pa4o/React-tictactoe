@@ -7,10 +7,11 @@ class App extends React.Component {
     this.state = {
       history: [{
         squares: Array(9).fill(null),
+        position: null,
+        player: null,
       }],
       xIsNext: true,
       stepNumber: 0,
-      boldCurrent: false,
     };
   }
 
@@ -25,32 +26,35 @@ class App extends React.Component {
     this.setState({
       history: history.concat([{
         squares: squares,
+        position: i,
+        player: this.state.xIsNext ? 'X' : 'O'
       }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
     });
+    console.log(this.state.history);
   }
 
   jumpTo(step) {
     this.setState({
       stepNumber: step,
       xIsNext: (step % 2) === 0,
-      boldCurrent: true,
     });
   }
+
+
 
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
-
     const moves = history.map((step, move) => {
       const desc = move ?
-        'Go to move #' + move :
+        `Player ${step.player} to ${calculatePosition(step.position)}. Go to move #${move}.` :
         'Go to game start';
       return (
         <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          <button className={(move === this.state.stepNumber) ? 'bold' : ''} onClick={() => this.jumpTo(move)}>{desc}</button>
         </li>
       );
     });
@@ -96,6 +100,17 @@ function calculateWinner(squares) {
     }
   }
   return null;
+}
+function calculatePosition(moves) {
+  let row;
+  let col;
+  if (moves > 2 && moves < 6) {
+    row = 2;
+  } else {(moves > 5) ? row = 3 : row = 1}
+  if (moves === 0 || moves === 3 || moves === 6 ) {
+    col = 1;
+  } else (moves === 1 || moves === 4 || moves === 7 ) ? col = 2 : col = 3;
+  return `row: ${row}, col: ${col}`;
 }
 
 export default App;
