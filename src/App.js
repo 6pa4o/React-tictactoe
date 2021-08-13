@@ -1,7 +1,7 @@
 import React from 'react';
-import Board from "./Board";
+import Board from "./Components/Board";
 
-class GameComponent extends React.Component {
+class App extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -98,4 +98,4 @@ function calculateWinner(squares) {
   return null;
 }
 
-export default GameComponent;
+export default App;
