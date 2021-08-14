@@ -32,7 +32,6 @@ class App extends React.Component {
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
     });
-    console.log(this.state.history);
   }
 
   jumpTo(step) {

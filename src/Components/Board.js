@@ -12,25 +12,20 @@ class Board extends React.Component {
   }
 
   render() {
+    let index = [0, 1, 2];
     return (
       <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+        {index.map((i, step) => {
+          return (
+            <div className="board-row" key={step}>
+              {index.map((x, step2) => {
+                return <span key={step * 3 + step2}>{this.renderSquare(step * 3 + step2)}</span>
+              })}
+            </div>
+          )
+        })}
       </div>
-    );
+    )
   }
 }
 
